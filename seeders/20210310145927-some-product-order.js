@@ -3,51 +3,54 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "orders",
+      "productOrders",
       [
         {
-          userId: 1,
-          status: "Shipped",
+          orderId: 1,
+          productId: 8,
+          quantity: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 2,
-
-          status: "Shipped",
+          orderId: 2,
+          productId: 7,
+          quantity: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 3,
-
-          status: "Ordered",
+          orderId: 3,
+          productId: 6,
+          quantity: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 4,
-          status: "Shipped",
+          orderId: 4,
+          productId: 5,
+          quantity: 4,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 5,
-
-          status: "Ordered",
+          orderId: 5,
+          productId: 4,
+          quantity: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 3,
-
-          status: "Ordered",
+          orderId: 6,
+          productId: 3,
+          quantity: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          userId: 4,
-          status: "Ordered",
+          orderId: 7,
+          productId: 1,
+          quantity: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -57,6 +60,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("orders", null, {});
+    await queryInterface.bulkDelete("productOrders", null, {});
   },
 };

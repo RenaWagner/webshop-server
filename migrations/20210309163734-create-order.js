@@ -8,9 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      quantity: {
-        type: Sequelize.INTEGER,
+      status: {
         allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -26,3 +26,8 @@ module.exports = {
     await queryInterface.dropTable("orders");
   },
 };
+
+//       quantity: {
+//   type: Sequelize.INTEGER,
+//   allowNull: false,
+// },

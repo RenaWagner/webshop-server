@@ -2,6 +2,7 @@ const User = require("./models").user;
 const Order = require("./models").order;
 const Product = require("./models").product;
 const Category = require("./models").category;
+const ProductOrder = require("./models").productOrder;
 
 // async function getUsers() {
 //   try {
@@ -77,27 +78,46 @@ const Category = require("./models").category;
 // }
 // getCategoryWithProducts(3).then((product) => console.log(product));
 
-async function getUserProfile(id) {
+// async function getUserProfile(id) {
+//   try {
+//     const user = await User.findByPk(id, {
+//       include: {
+//         model: Order,
+//         attributes: ["quantity"],
+//         include: {
+//           model: Product,
+//           attributes: ["name"],
+//           include: {
+//             model: Category,
+//             attributes: ["name"],
+//           },
+//         },
+//       },
+//     });
+//     return user.get({ plain: true });
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
+// getUserProfile(1).then((user) =>
+//   console.log(user.orders[0].product.categories)
+// );
+
+async function getOrderDetails(id) {
   try {
-    const user = await User.findByPk(id, {
+    const order = await ProductOrder.findByPk(id, {
       include: {
         model: Order,
-        attributes: ["quantity"],
-        include: {
-          model: Product,
-          attributes: ["name"],
-          include: {
-            model: Category,
-            attributes: ["name"],
-          },
-        },
+        attributes: ["status"],
+      },
+      include: {
+        model: Product,
+        attributes: ["name"],
       },
     });
-    return user.get({ plain: true });
+    return order.get({ plain: true });
   } catch (e) {
     console.error(e);
   }
 }
-getUserProfile(1).then((user) =>
-  console.log(user.orders[0].product.categories)
-);
+getOrderDetails(1).then((user) => console.log(user));
