@@ -3,19 +3,6 @@ const router = new Router();
 const User = require("../models").user;
 const bcrypt = require("bcrypt");
 
-// This has to move under /admin
-// router.get("/", async (req, res, next) => {
-//   try {
-//     const allUsers = await User.findAll();
-//     if (!allUsers) {
-//       return res.status(404).send("Users not found");
-//     }
-//     res.send(allUsers);
-//   } catch (e) {
-//     next(e);
-//   }
-// });
-
 router.post("/", async (req, res, next) => {
   try {
     const { firstName, lastName, address, email, phone, password } = req.body;
