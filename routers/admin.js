@@ -48,23 +48,13 @@ router.get("/orders", async (req, res, next) => {
   }
 });
 
-router.post("/products", async (req, res, send) => {
+router.post("/products", async (req, res, next) => {
   try {
     const { name, description, imgUrl, price, category } = req.body;
     if (!category) {
       return res.status(404).send("Please provide at least one category");
     }
-
-    //What if this is an array?
-    const checkedCategory = await Category.findByPk(category);
-    console.log(checkedCategory);
-    if (!checkedCategory) {
-      return res
-        .status(400)
-        .send(
-          "Please provide registered category, or create the category first."
-        );
-    }
+    console.log(req.body);
 
     if (!name) {
       return res.status(404).send("Please provide name");
@@ -75,14 +65,42 @@ router.post("/products", async (req, res, send) => {
       imgUrl,
       price,
     });
+
+    //check if category is an array or not:
+    if (Array.isArray(category)) {
+      const newProductCategories = category.map(async (categoryId) => {
+        const checkedCategory = await Category.findByPk(categoryId);
+        // console.log(checkedCategory);
+        if (!checkedCategory) {
+          return res
+            .status(400)
+            .send(
+              "Please provide registered category, or create the category first."
+            );
+        }
+        const newProductCategory = await ProductCategory.create({
+          productId: newProduct.id,
+          categoryId: checkedCategory.id,
+        });
+        // console.log(newProductCategory);
+      });
+    } else {
+      const checkedCategory = await Category.findByPk(category);
+      //   console.log("CheckedCateogy", checkedCategory);
+      if (!checkedCategory) {
+        return res
+          .status(400)
+          .send(
+            "Please provide registered category, or create the category first."
+          );
+      }
+      const newProductCategory = await ProductCategory.create({
+        productId: newProduct.id,
+        categoryId: checkedCategory.id,
+      });
+      //   console.log(newProductCategory);
+    }
     // console.log(newProduct);
-
-    const newProductCategory = await ProductCategory.create({
-      productId: newProduct.id,
-      categoryId: checkedCategory.id,
-    });
-    console.log(newProductCategory);
-
     res.send(newProduct);
   } catch (e) {
     next(e);

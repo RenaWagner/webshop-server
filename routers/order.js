@@ -30,14 +30,14 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    //If you want to add multiple products at once, change the product here to array and map them
+    //If that's the case, quantity needs to set up differently.
     const { product, quantity } = req.body;
     if (!product) {
       return res.status(400).send("Please choose the product");
     }
-    // const count = await Order.count();
-    // console.log("count", count);
+    console.log(req.body);
 
-    //what if there are more than 1 products? map an array and do below?
     const addOrderId = await Order.create({
       userId: req.user.id,
       status: "Ordered",
