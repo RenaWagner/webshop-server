@@ -3,7 +3,7 @@ const { toJWT, toData } = require("../auth/jwt");
 const router = new Router();
 const User = require("../models").user;
 const bcrypt = require("bcrypt");
-const authMiddleware = require("../auth/middleware");
+const middleware = require("../auth/middleware");
 
 router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
 //     message: `Thanks for visiting the secret endpoint ${req.user.email}.`,
 //   });
 // });
-router.get("/me", authMiddleware, (req, res) => {
+router.get("/me", middleware.auth, (req, res) => {
   res.send(req.user);
 });
 
