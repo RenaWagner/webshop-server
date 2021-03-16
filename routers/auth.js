@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
 //     message: `Thanks for visiting the secret endpoint ${req.user.email}.`,
 //   });
 // });
-router.get("/me", authMiddleWare, (req, res) => {
+router.get("/me", authMiddleware, (req, res) => {
   res.send(req.user);
 });
 
