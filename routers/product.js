@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
     const allProducts = await Product.findAll({
       limit,
       offset,
-      include: [Category],
+      include: [{ model: Category, attributes: ["id", "name"] }],
     });
     if (!allProducts) {
       res.status(404).send("Products not found");
