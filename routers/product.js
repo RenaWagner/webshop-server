@@ -22,4 +22,20 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:productId", async (req, res, next) => {
+  try {
+    const productId = parseInt(req.params.productId);
+    const specificProduct = await Product.findOne({
+      where: { id: productId },
+      include: [{ model: Category, attributes: ["id", "name"] }],
+    });
+    if (!specificProduct) {
+      return res.status(404).send("Product not found");
+    }
+    res.send(specificProduct);
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;

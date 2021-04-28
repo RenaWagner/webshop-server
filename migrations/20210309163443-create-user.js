@@ -18,7 +18,6 @@ module.exports = {
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
@@ -27,11 +26,10 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
       isAdmin: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        defaulValue: false,
       },
       createdAt: {
         allowNull: false,
